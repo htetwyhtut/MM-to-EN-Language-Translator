@@ -30,7 +30,7 @@ Student ID: st125326
 ## Task 3: Evaluation and Verification (2.5 points)
 1. Best Accuracy: additiveAttention 
 2. additiveAttention achieves the lowest best train loss at 4.161.
-3. additiveAttention achieves the lowest best train PPL at
+3. additiveAttention achieves the lowest best train PPL at 64.144.
 4. additiveAttention achieves the lowest best validation loss at 5.187.
 5. additiveAttention achieves the lowest best validation PPL at 178.845.
 6. Computational Efficiency: generalAttention takes 9m 31s to train, which is the fastest.
