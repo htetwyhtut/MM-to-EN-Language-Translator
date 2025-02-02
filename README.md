@@ -15,8 +15,6 @@ python app/app.py
 
 ## How to use website
 1. Open a web browser and navigate to http://127.0.0.1:5000.
-2. Enter a prompt and select a word limit.
-2. Click "Generate Story" to see the result.
 
 ## Screenshot of my web app
 
@@ -33,97 +31,40 @@ python app/app.py
 3. MYANMAR tokenization done using custom tokenizer for Myanmar using the Viterbi algorithm for word segmentation. This is a sophisticated approach and well-suited for Myanmar, which requires word segmentation. (Full credit to Dr. Ye Kyaw Thu for the Viterbi algorithm implementation. [https://github.com/ye-kyaw-thu/myWord] )
 4. Vocabulary buidling: Tokenized English and Myanmar text are used to build a vocabulary. The vocabulary is then used to convert text into numerical indices for further processing.
 
+## Task 2: Experiment with Attention Mechanisms( General, Multiplicative, Additive) (1.5 points)
 
+1. Comparison of Different Attention Models
 
+| Attention Model Names | Training Loss | Training PPL | Validation Loss | Validation PPL | Training Time |
+|-----------------------|---------------|--------------|-----------------|----------------|---------------|
+| General Attention      | 4.200         | 66.714       | 5.214           | 183.789        | 9m 31s        |
+| Multiplicative Attention | 4.206         | 67.083       | 5.194           | 180.127        | 10m 27s       |
+| Additive Attention     | 4.161         | 64.144       | 5.187           | 178.845        | 10m 11s       |
 
+## Task 3: Evaluation and Verification (2.5 points)
+1. Best Accuracy: additiveAttention 
+2. additiveAttention achieves the lowest best train loss at 4.161.
+3. additiveAttention achieves the lowest best train PPL at
+4. additiveAttention achieves the lowest best validation loss at 5.187.
+5. additiveAttention achieves the lowest best validation PPL at 178.845.
+6. Computational Efficiency: generalAttention takes 9m 31s to train, which is the fastest.
+7. Train loss and Validation loss graph for all models
+![alt text](<Training graph.png>)
+8. Attention Maps for General Attention
+![alt text](<General Attention map.png>)
+9. Attention Maps for Multiplicative Attention
+![alt text](<Multiplicative Attention map.png>)
+10. Attention Maps for Additive Attention
+![alt text](<Additive Attention map.png>)
+11. Final Analysis
+- Original sentence: Italy have defeated Portugal 31-5 in Pool C of the 2007 Rugby World Cup at Parc des Princes, Paris, France.
 
+- MY Translation by General attention: နိုင်ငံ၏ဝင်ကတွင်မြို့ကန်မှုလူခုနှစ်တွင်လလာတွင်လူသည်။ကိုလည်း၁၏ယောက်ဖြင့်စီတွင်လူခဲ့ခဲ့သည်။နေ
 
+- MY Translation by Multiplicative attention: 
+နိုင်ငံတွင်ဝင်ပါတွင်မြို့နိုင်ငံနှစ်ပိုင်းခုနှစ်တွင်များလာတွင်၊သည်။ကိုလည်း၁နှစ်ယောက်ဖြင့်၊စီတွင်၊ခဲ့ခဲ့သည်။တွင်
 
+- MY Translation by Addtitive attention: 
+နိုင်ငံတွင်ဝင်ပါတွင်ကဲ-နိုင်ငံတွင်ရှိခုနှစ်တွင်ရှိလာတွင်ရှိသည်။ကိုမ၆နှစ်နာရီဖြင့်ရှိစီ)ရှိခဲ့ခဲ့သည်။ရ
 
-
-
-
-
-
-## Task 2.1: Detail the steps taken to preprocess the text data. (1 points)
-1. Load the Dataset
-2. Define the Tokenizer
-- Use `torchtext.data.utils.get_tokenizer` to create a tokenizer.<br><br>
-3. Tokenize the Text
-- Define a function to tokenize each example in the dataset.
-- Use the `map` method to apply the tokenization function to the entire dataset.<br><br>
-4. Remove Unnecessary Columns
-- Remove the original `'text'` column after tokenization.<br><br>
-5. Build Vocabulary and Numericalize Data
-- Build a vocabulary using `torchtext.vocab.build_vocab_from_iterator`.
-  - Set a minimum frequency threshold (e.g., `min_freq=3`) to filter out rare tokens.
-- Add special tokens (e.g., `'<unk>'` and `'<eos>'`) if they don't already exist in the vocabulary. <br><br>
-6. Inspect the Results
-- Verify that the tokenization was applied correctly by inspecting the tokenized dataset.
-
-## Task 2.2: Describe the model architecture and the training process. (1 points)
-
-Model Architecture
-The model is an LSTM-based Language Model implemented in PyTorch. It consists of the following key components:
-1. Embedding Layer
-2. **LSTM Layer
-3. Dropout Layer
-4. Fully Connected Layer
-5. Initialization
-
-Training Process (Data Preparation and Training Loop)
-1. Tokenization and Numericalization
-2. Batching
-3. Training Loop
-- Initialization,Forward Pass, Loss Calculation, Backpropagation, Evaluation, Checkpointing
-
-Metrics (Perplexity):
-  - Used to evaluate the model's performance.
-  - Defined as exp(loss).
-  - Lower perplexity indicates better performance.
-
-Training Output
-During training, the following metrics are printed for each epoch:
-- Train Perplexity: Perplexity on the training set.
-- Valid Perplexity: Perplexity on the validation set.
-
-## Task 3. Text Generation - Web Application Development (2 points)
-Provide documentation on how the web application interfaces with the language model.
-
-1. Frontend (HTML/CSS)
-2. Backend (Flask)
-3. User Workflow
-
-Step 1: User Input
-- The user visits the web application and sees a form with two fields:
-- Text Prompt: The user enters a starting sentence or phrase (e.g., "Once upon a time").
-- Max Word Limit: The user selects the maximum number of words to generate (options: 20, 50, 100).
-- The user clicks the "Generate Story" button to submit the form.
-
-Step 2: Backend Processing
-- The Flask application (app.py) receives the form data via a POST request.
-- The application extracts the following from the form:
-- prompt: The text prompt entered by the user.
-- seq_len: The maximum word limit selected by the user.
-- The application calls the generate function from class_function.py with the following parameters:
-- prompt: The user's text prompt.
-- max_seq_len: The maximum word limit.
-- temperature: Controls the randomness of the generated text (default: 1.0).
-- model: The pre-trained LSTM language model.
-- tokenizer: Converts text into tokens for the model.
-- vocab: Maps tokens to indices and vice versa.
-- device: Specifies whether to use CPU or GPU (automatically detected).
-- seed: Ensures reproducibility (default: 0).
-
-Step 3: Text Generation
-- The generate function processes the input prompt:
-- Tokenizes the prompt using the tokenizer.
-- Converts tokens into indices using the vocab.
-- The LSTM model generates text autoregressively:
-- The model predicts the next word based on the input sequence.
-- The process repeats until the maximum word limit is reached or an end-of-sequence token (<eos>) is generated.
-- The generated tokens are converted back into text using the vocab.
-
-Step 4: Display Results
-- The generated text is returned to the Flask application.
-- The application renders the index.html template with the generated text and displays it to the user.
+- The datset trained has been reduced to be able to train on my laptop GPU so the translation made are unsurprisingly not so accurate in real world translation scenario.
