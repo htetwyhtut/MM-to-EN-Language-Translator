@@ -5,20 +5,6 @@ Enjoy reading my A3 Assignment for NLP class.
 Name: WIN MYINT@HTET WAI YAN HTUT (WILLIAM)
 Student ID: st125326
 
-## How to run the web app
-1. Pull the github repository
-2. Run
-```sh
-python app/app.py
-```
-3. Access the app using http://127.0.0.1:5000
-
-## How to use website
-1. Open a web browser and navigate to http://127.0.0.1:5000.
-
-## Screenshot of my web app
-
-
 ## Task 1.1: Find relevant Dataset (1 points)
 1. As a Myanmar Nationality, I choose ENGLISH - MYANMAR text pair as my dataset.
 2. I obtained my dataset from https://www2.nict.go.jp/astrec-att/member/mutiyama/ALT/
@@ -49,13 +35,13 @@ python app/app.py
 5. additiveAttention achieves the lowest best validation PPL at 178.845.
 6. Computational Efficiency: generalAttention takes 9m 31s to train, which is the fastest.
 7. Train loss and Validation loss graph for all models
-![alt text](<Training graph.png>)
+![Training Comparison](<Training graph.png>)
 8. Attention Maps for General Attention
-![alt text](<General Attention map.png>)
+![General Attention](<General Attention map.png>)
 9. Attention Maps for Multiplicative Attention
-![alt text](<Multiplicative Attention map.png>)
+![Multiplicative Attention](<Multiplicative Attention map.png>)
 10. Attention Maps for Additive Attention
-![alt text](<Additive Attention map.png>)
+![Additive Attention](<Additive Attention map.png>)
 11. Final Analysis
 - Original sentence: Italy have defeated Portugal 31-5 in Pool C of the 2007 Rugby World Cup at Parc des Princes, Paris, France.
 
@@ -68,3 +54,25 @@ python app/app.py
 နိုင်ငံတွင်ဝင်ပါတွင်ကဲ-နိုင်ငံတွင်ရှိခုနှစ်တွင်ရှိလာတွင်ရှိသည်။ကိုမ၆နှစ်နာရီဖြင့်ရှိစီ)ရှိခဲ့ခဲ့သည်။ရ
 
 - The datset trained has been reduced to be able to train on my laptop GPU so the translation made are unsurprisingly not so accurate in real world translation scenario.
+
+## Task 4: Web App (2 points)
+How to run the web app
+1. Pull the github repository
+2. Run
+```sh
+python app/app.py
+```
+3. Access the app using http://127.0.0.1:5000
+
+## How to use website
+1. Open a web browser and navigate to http://127.0.0.1:5000.
+2. Enter the text you want to translate in the input field.
+3. Click the "Translate" button to get the translated text.
+4. View the translated text in the output field.
+
+## Screenshot of my web app
+![Home Page](Home_Page.png)
+![Result Page](Result_Page.png)
+
+## documentation on how the web application interfaces with the language model for machine translation.
+This web application showcases a machine translation system that translates English text into Myanmar using a Transformer-based model with an Additive Attention mechanism. The model is deployed through a Flask web application and uses the trained language model to generate translations in real-time.
